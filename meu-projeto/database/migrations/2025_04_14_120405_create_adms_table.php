@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('adms', function (Blueprint $table) {
             $table->id();
+            $table->string('nome');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

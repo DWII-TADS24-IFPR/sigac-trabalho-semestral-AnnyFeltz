@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Adm;
 use App\Models\Aluno;
 use App\Models\Nivel;
 use App\Models\Turma;
@@ -11,6 +12,7 @@ use App\Models\Categoria;
 use App\Models\Comprovante;
 use App\Models\Declaracao;
 use App\Models\Documento;
+use App\Models\Eixo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -256,5 +258,58 @@ class DatabaseSeeder extends Seeder
         foreach ($declaracoes as $declaracao) {
             Declaracao::create($declaracao);
         }
+
+        $roles = [
+            ['name' => 'admin'],
+            ['name' => 'aluno'],
+        ];
+
+        foreach ($roles as $role) {
+            User::create($role);
+        }
+
+        $adm = [
+            'nome' => 'Admin',
+            'email' => 'adm@gmail.com',
+            'password' => bcrypt('admin123'),
+        ];
+
+        Adm::create($adm);
+
+        $users = [
+            [
+                'nome' => 'Carol Feltz',
+                'email' => 'carolfeltz@gmail.com',
+                'senha' => bcrypt('12345678'),
+                'role_id' => 3,
+            ],
+            [
+                'nome' => 'Adm',
+                'email' => 'adm@gmail.com',
+                'senha' => bcrypt('admin123'),
+                'role_id' => 1,
+            ],
+        ];
+
+        foreach ($users as $user) {
+            User::create($user);
+        }
+
+        $eixos = [
+            [
+                'nome' => 'Info',
+            ],
+            [
+                'nome' => 'Física',
+            ],
+            [
+                'nome' => 'Artes Visuais',
+            ],
+        ];
+        
+        foreach ($eixos as $eixo) {
+            Eixo::create($eixo);
+        }
+
     }
 }
