@@ -49,3 +49,4 @@ A nota será atribuída com base nos seguintes critérios:
 
 Após o prazo final, o aluno ainda poderá apresentar o projeto com **caráter de recuperação**, por até **7 dias corridos**, ou seja, até a **próxima aula regular**.
 ➡️ Neste período, o **conceito máximo possível** será **C**.
+
