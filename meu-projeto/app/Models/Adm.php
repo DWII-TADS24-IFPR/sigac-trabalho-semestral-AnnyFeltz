@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Adm extends Model
 {
-    protected $table = 'adm';
+    protected $table = 'adms';
     protected $fillable = ['nome', 'email', 'password'];
 
     public function documentos()

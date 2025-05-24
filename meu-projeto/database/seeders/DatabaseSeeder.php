@@ -13,6 +13,7 @@ use App\Models\Comprovante;
 use App\Models\Declaracao;
 use App\Models\Documento;
 use App\Models\Eixo;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -36,54 +37,75 @@ class DatabaseSeeder extends Seeder
             Nivel::create($nivel);
         }
 
+        $eixos = [
+            ['nome' => 'Info'],
+            ['nome' => 'Artes Visuais'],
+            ['nome' => 'Matemática'],
+            ['nome' => 'Linguagens'],
+            ['nome' => 'Ciências'],
+        ];
+
+        // Salva os eixos no banco e guarda os IDs
+        foreach ($eixos as $eixo) {
+            Eixo::create($eixo);
+        }
+
         $cursos = [
             [
                 'nome' => 'Matemática',
                 'sigla' => 'MAT',
                 'total_horas' => 60,
-                'nivel_id' => 1
+                'nivel_id' => 1,
+                'eixo_id' => 3, // Matemática
             ],
             [
                 'nome' => 'Física',
                 'sigla' => 'FIS',
                 'total_horas' => 80,
-                'nivel_id' => 2
+                'nivel_id' => 2,
+                'eixo_id' => 5, // Ciências
             ],
             [
                 'nome' => 'Química',
                 'sigla' => 'QUI',
                 'total_horas' => 70,
-                'nivel_id' => 3
+                'nivel_id' => 3,
+                'eixo_id' => 5, // Ciências
             ],
             [
                 'nome' => 'Biologia',
                 'sigla' => 'BIO',
                 'total_horas' => 90,
-                'nivel_id' => 4
+                'nivel_id' => 4,
+                'eixo_id' => 5, // Ciências
             ],
             [
                 'nome' => 'Engenharia',
                 'sigla' => 'ENG',
                 'total_horas' => 120,
-                'nivel_id' => 5
+                'nivel_id' => 5,
+                'eixo_id' => 1, // Info
             ],
             [
                 'nome' => 'Direito',
                 'sigla' => 'DIR',
                 'total_horas' => 100,
-                'nivel_id' => 6
+                'nivel_id' => 6,
+                'eixo_id' => 4, // Linguagens
             ],
             [
                 'nome' => 'Medicina',
                 'sigla' => 'MED',
                 'total_horas' => 150,
-                'nivel_id' => 7
+                'nivel_id' => 7,
+                'eixo_id' => 5, // Ciências
             ],
         ];
 
         foreach ($cursos as $curso) {
             Curso::create($curso);
         }
+
 
         $categorias = [
             [
@@ -260,12 +282,12 @@ class DatabaseSeeder extends Seeder
         }
 
         $roles = [
-            ['name' => 'admin'],
-            ['name' => 'aluno'],
+            ['nome' => 'admin'],
+            ['nome' => 'aluno'],
         ];
 
         foreach ($roles as $role) {
-            User::create($role);
+            Role::create($role);
         }
 
         $adm = [
@@ -281,7 +303,7 @@ class DatabaseSeeder extends Seeder
                 'nome' => 'Carol Feltz',
                 'email' => 'carolfeltz@gmail.com',
                 'senha' => bcrypt('12345678'),
-                'role_id' => 3,
+                'role_id' => 2,
             ],
             [
                 'nome' => 'Adm',
@@ -294,28 +316,5 @@ class DatabaseSeeder extends Seeder
         foreach ($users as $user) {
             User::create($user);
         }
-
-        $eixos = [
-            [
-                'nome' => 'Info',
-            ],
-            [
-                'nome' => 'Artes Visuais',
-            ],
-            [
-                'nome' => 'Matemática',
-            ],
-            [
-                'nome' => 'Linguagens',
-            ],
-            [
-                'nome' => 'Ciências',
-            ],
-        ];
-        
-        foreach ($eixos as $eixo) {
-            Eixo::create($eixo);
-        }
-
     }
 }
