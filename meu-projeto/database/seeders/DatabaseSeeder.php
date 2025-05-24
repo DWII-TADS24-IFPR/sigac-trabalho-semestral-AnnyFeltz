@@ -300,10 +300,16 @@ class DatabaseSeeder extends Seeder
                 'nome' => 'Info',
             ],
             [
-                'nome' => 'Física',
+                'nome' => 'Artes Visuais',
             ],
             [
-                'nome' => 'Artes Visuais',
+                'nome' => 'Matemática',
+            ],
+            [
+                'nome' => 'Linguagens',
+            ],
+            [
+                'nome' => 'Ciências',
             ],
         ];
         
