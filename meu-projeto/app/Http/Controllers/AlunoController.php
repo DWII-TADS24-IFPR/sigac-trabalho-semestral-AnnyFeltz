@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Aluno;
+use App\Models\User;
 
 class AlunoController extends Controller
 {
@@ -34,17 +35,30 @@ class AlunoController extends Controller
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|max:14',
-            'email' => 'required|email|max:255',
-            'senha' => 'required|string|min:6',
+            'cpf' => 'required|string|max:14|unique:alunos',
+            'email' => 'required|email|max:255|unique:users,email',
+            'senha' => 'required|string|min:6|confirmed',
             'curso_id' => 'required|exists:cursos,id',
             'turma_id' => 'required|exists:turmas,id',
         ]);
 
-        Aluno::create($request->all());
+        $user = User::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'senha' => bcrypt($request->senha),
+            'role_id' => 2,
+        ]);
+
+        Aluno::create([
+            'cpf' => $request->cpf,
+            'curso_id' => $request->curso_id,
+            'turma_id' => $request->turma_id,
+            'user_id' => $user->id,
+        ]);
 
         return redirect()->route('alunos.index')->with('success', 'Aluno criado com sucesso!');
     }
+
 
     /**
      * Display the specified resource.
@@ -71,24 +85,34 @@ class AlunoController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Aluno $aluno)
-{
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'cpf' => 'required|string|max:14',
-        'email' => 'required|email|max:255',
-        'senha' => 'nullable|string|min:6',
-        'curso_id' => 'required|exists:cursos,id',
-        'turma_id' => 'required|exists:turmas,id',
-    ]);
+    {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|max:14|unique:alunos,cpf,' . $aluno->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $aluno->user_id,
+            'senha' => 'nullable|string|min:6|confirmed',
+            'curso_id' => 'required|exists:cursos,id',
+            'turma_id' => 'required|exists:turmas,id',
+        ]);
 
-    if ($request->filled('senha')) {
-        $aluno->senha = bcrypt($request->senha);
+        // Atualiza usuário
+        $user = $aluno->user;
+        $user->nome = $request->nome;
+        $user->email = $request->email;
+        if ($request->filled('senha')) {
+            $user->senha = bcrypt($request->senha);
+        }
+        $user->save();
+
+        // Atualiza aluno
+        $aluno->cpf = $request->cpf;
+        $aluno->curso_id = $request->curso_id;
+        $aluno->turma_id = $request->turma_id;
+        $aluno->save();
+
+        return redirect()->route('alunos.index')->with('success', 'Aluno atualizado com sucesso!');
     }
 
-    $aluno->update($request->except('senha'));
-
-    return redirect()->route('alunos.index')->with('success', 'Aluno atualizado com sucesso!');
-}
 
 
     /**

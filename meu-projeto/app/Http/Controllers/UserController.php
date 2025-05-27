@@ -30,16 +30,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nome' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'senha' => 'required|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
         ]);
 
         User::create([
-            'name' => $request->name,
+            'nome' => $request->nome,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'senha' => bcrypt($request->password),
             'role_id' => $request->role_id,
         ]);
 
@@ -70,17 +70,17 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nome' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
+            'senha' => 'nullable|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
         ]);
 
         $user = User::findOrFail($id);
-        $user->name = $request->name;
+        $user->nome = $request->nome;
         $user->email = $request->email;
-        if ($request->password) {
-            $user->password = bcrypt($request->password);
+        if ($request->senha) {
+            $user->senha = bcrypt($request->passord);
         }
         $user->role_id = $request->role_id;
         $user->save();
