@@ -28,4 +28,9 @@ class Curso extends Model
     public function alunos(){
         return $this->hasMany(Aluno::class);
     }
+
+    public function eixo()
+    {
+        return $this->belongsTo(Eixo::class);
+    }
 }

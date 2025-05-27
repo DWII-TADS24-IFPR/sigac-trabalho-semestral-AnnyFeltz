@@ -45,6 +45,15 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="eixos" class="form-label">Eixos</label>
+            <select class="form-select" id="eixos" name="eixos[]" multiple required>
+                @foreach($eixos as $eixo)
+                <option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <button type="submit" class="button">Salvar</button>

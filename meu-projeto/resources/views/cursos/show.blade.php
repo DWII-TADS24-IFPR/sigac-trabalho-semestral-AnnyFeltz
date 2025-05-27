@@ -16,6 +16,8 @@
         <th>SIGLA</th>
         <th>TOTAL HORAS</th>
         <th>NIVEL</th>
+        <th>TURMAS</th>
+        <th>EIXOS</th>
     </tr>
     <tr>
         <td>{{ $curso->id }}</td>
@@ -28,6 +30,11 @@
         <td>
             @foreach($curso->turmas as $turma)
             {{ $turma->ano }}<br>
+            @endforeach
+        </td>
+        <td>
+            @foreach($curso->eixos as $eixo)
+            {{ $eixo->nome }}<br>
             @endforeach
         </td>
     </tr>

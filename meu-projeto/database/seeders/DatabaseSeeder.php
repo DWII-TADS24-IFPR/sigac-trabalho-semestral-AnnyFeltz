@@ -290,14 +290,6 @@ class DatabaseSeeder extends Seeder
             Role::create($role);
         }
 
-        $adm = [
-            'nome' => 'Admin',
-            'email' => 'adm@gmail.com',
-            'password' => bcrypt('admin123'),
-        ];
-
-        Adm::create($adm);
-
         $users = [
             [
                 'nome' => 'Carol Feltz',

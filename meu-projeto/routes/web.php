@@ -3,16 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunoController;
-use App\http\Controllers\CursoController;
-use App\http\Controllers\EixoController;
-use App\http\Controllers\TurmaController;
-use App\http\Controllers\CategoriaController;
+use App\Http\Controllers\CursoController;
+use App\Http\Controllers\EixoController;
+use App\Http\Controllers\TurmaController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComprovanteController;
-use App\http\Controllers\NivelController;
-use App\http\Controllers\DeclaracaoController;
-use App\http\Controllers\SolicitacaoController;
-use App\http\Controllers\GraficoController;
-use App\http\Controllers\DashboardController;
+use App\Http\Controllers\NivelController;
+use App\Http\Controllers\DeclaracaoController;
+use App\Http\Controllers\SolicitacaoController;
+use App\Http\Controllers\GraficoController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoController;
 use App\Models\Documento;
 
