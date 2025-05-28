@@ -9,12 +9,7 @@
 <h3>Bem vindo!</h3>
 
 <div class="botoes">
-        <div class="card">
-            <h4>Alunos</h4>
-            <a class="button botao" href="{{ route('alunos.index') }}">Index</a>
-            <a class="button botao" href="{{ route('alunos.create') }}">Create</a>
-        </div>
-        
+        <h1>Eai Aluno, não deu tempo de te dar afazeres foi mal </h1>
     </div>
 
     @endsection

@@ -47,6 +47,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('comprovantes', ComprovanteController::class);
         Route::resource('documentos', DocumentoController::class);
         Route::resource('declaracoes', DeclaracaoController::class);
+        Route::get('/avaliar-horas', function () {
+            return view('outros.avaliar_solicitacoes');
+        });
+        Route::get('/gerar-graficos', function () {
+            return view('outros.graficos_horas_cumpridas');
+        });
+        
     });
 
     Route::middleware('isAluno')->group(function () {
@@ -54,6 +61,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/home_aluno', function () {
             return view('home_aluno');
         });
-    });
 
+        Route::get('/declarar-horas', function () {
+            return view('outros.declaracao_cumprimento');
+        });
+        Route::get('/solicitar-horas', function () {
+            return view('outros.solicitar_horas');
+        });
+    });
 });
