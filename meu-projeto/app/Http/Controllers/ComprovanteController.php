@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comprovante;
+use App\Models\Aluno;
+use App\Models\Categoria;
+
+use function view;
+use function redirect;
+use function compact;
+
 
 class ComprovanteController extends Controller
 {
@@ -21,8 +28,8 @@ class ComprovanteController extends Controller
      */
     public function create()
     {
-        $alunos = \App\Models\Aluno::all();
-        $categorias = \App\Models\Categoria::all();
+        $alunos = Aluno::all();
+        $categorias = Categoria::all();
 
         return view('comprovantes.create', compact('alunos', 'categorias'));
     }
@@ -59,8 +66,8 @@ class ComprovanteController extends Controller
     public function edit(string $id)
     {
         $comprovante = Comprovante::findOrFail($id);
-        $alunos = \App\Models\Aluno::all();
-        $categorias = \App\Models\Categoria::all();
+        $alunos = Aluno::all();
+        $categorias = Categoria::all();
 
         return view('comprovantes.edit')->with(['comprovante' => $comprovante, 'alunos' => $alunos, 'categorias' => $categorias]);
     }
