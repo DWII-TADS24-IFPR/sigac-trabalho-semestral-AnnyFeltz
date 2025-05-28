@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Aluno;
+
 
 class UserController extends Controller
 {
@@ -28,23 +30,37 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'senha' => 'required|string|min:8|confirmed',
-            'role_id' => 'required|exists:roles,id',
-        ]);
+{
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'cpf' => 'required|string|max:14|unique:alunos',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|confirmed',
+        'role_id' => 'required|exists:roles,id',
+        'curso_id' => 'nullable|exists:cursos,id',
+        'turma_id' => 'nullable|exists:turmas,id',
+    ]);
 
-        User::create([
-            'nome' => $request->nome,
-            'email' => $request->email,
-            'senha' => bcrypt($request->password),
-            'role_id' => $request->role_id,
-        ]);
+    $user = User::create([
+        'nome' => $request->nome,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'role_id' => $request->role_id,
+    ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+    // Se for aluno, cria o registro na tabela alunos
+    if ($user->role && strtolower($user->role->nome) === 'aluno') {
+        Aluno::create([
+            'cpf' => $request->cpf,
+            'curso_id' => $request->curso_id,
+            'turma_id' => $request->turma_id,
+            'user_id' => $user->id,
+        ]);
     }
+
+    return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso.');
+}
+
 
     /**
      * Display the specified resource.
@@ -72,15 +88,15 @@ class UserController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'senha' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
         ]);
 
         $user = User::findOrFail($id);
         $user->nome = $request->nome;
         $user->email = $request->email;
-        if ($request->senha) {
-            $user->senha = bcrypt($request->passord);
+        if ($request->password) {
+            $user->password = bcrypt($request->passord);
         }
         $user->role_id = $request->role_id;
         $user->save();

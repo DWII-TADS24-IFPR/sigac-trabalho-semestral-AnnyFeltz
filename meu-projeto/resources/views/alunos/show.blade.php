@@ -20,9 +20,9 @@
     </tr>
     <tr>
         <td>{{ $aluno->id }}</td>
-        <td>{{ $aluno->nome }}</td>
+        <td>{{ $aluno->user->nome ?? '—' }}</td>
         <td>{{ $aluno->cpf }}</td>
-        <td>{{ $aluno->email }}</td>
+        <td>{{ $aluno->user->email ?? '—' }}</td>
         <td>{{ $aluno->curso->nome ?? '—' }}</td>
         <td>{{ $aluno->turma->ano ?? '—' }}</td>
     </tr>

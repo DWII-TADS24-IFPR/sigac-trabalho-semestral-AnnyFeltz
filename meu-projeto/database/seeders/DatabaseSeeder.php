@@ -148,55 +148,6 @@ class DatabaseSeeder extends Seeder
             Turma::create($turma);
         }
 
-
-        $alunos = [
-            [
-                'nome' => 'Carol',
-                'cpf' => '12345678900',
-                'email' => 'carol@gmail.com',
-                'senha' => bcrypt('12345678'),
-                'turma_id' => 1,
-                'curso_id' => 1
-            ],
-            [
-                'nome' => 'João',
-                'cpf' => '98765432100',
-                'email' => 'joao@gmail.com',
-                'senha' => bcrypt('87654321'),
-                'turma_id' => 1,
-                'curso_id' => 1
-            ],
-            [
-                'nome' => 'Maria',
-                'cpf' => '45678912300',
-                'email' => 'maria@gmail.com',
-                'senha' => bcrypt('123123123'),
-                'turma_id' => 2,
-                'curso_id' => 2
-            ],
-            [
-                'nome' => 'Pedro',
-                'cpf' => '32165498700',
-                'email' => 'pedro@gmail.com',
-                'senha' => bcrypt('321321321'),
-                'turma_id' => 2,
-                'curso_id' => 2
-            ],
-            [
-                'nome' => 'Ana',
-                'cpf' => '78912345600',
-                'email' => 'ana@gmail.com',
-                'senha' => bcrypt('456456456'),
-                'turma_id' => 3,
-                'curso_id' => 3
-            ],
-        ];
-
-
-        foreach ($alunos as $aluno) {
-            Aluno::create($aluno);
-        }
-
         $documentos = [
             [
                 'url' => 'https://example.com/rg.pdf',
@@ -229,6 +180,83 @@ class DatabaseSeeder extends Seeder
 
         foreach ($documentos as $documento) {
             Documento::create($documento);
+        }
+
+        $roles = [
+            ['nome' => 'admin'],
+            ['nome' => 'aluno'],
+        ];
+
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
+
+        $alunos = [
+            [
+                'nome' => 'Adm',
+                'cpf' => '12345678902',
+                'email' => 'adm@gmail.com',
+                'password' => bcrypt('admin123'),
+                'turma_id' => 1,
+                'curso_id' => 1,
+            ],
+            [
+                'nome' => 'Carol',
+                'cpf' => '12345678900',
+                'email' => 'carol@gmail.com',
+                'password' => bcrypt('12345678'),
+                'turma_id' => 1,
+                'curso_id' => 1,
+            ],
+            [
+                'nome' => 'João',
+                'cpf' => '98765432100',
+                'email' => 'joao@gmail.com',
+                'password' => bcrypt('87654321'),
+                'turma_id' => 1,
+                'curso_id' => 1,
+            ],
+            [
+                'nome' => 'Maria',
+                'cpf' => '45678912300',
+                'email' => 'maria@gmail.com',
+                'password' => bcrypt('123123123'),
+                'turma_id' => 2,
+                'curso_id' => 2,
+            ],
+            [
+                'nome' => 'Pedro',
+                'cpf' => '32165498700',
+                'email' => 'pedro@gmail.com',
+                'password' => bcrypt('321321321'),
+                'turma_id' => 2,
+                'curso_id' => 2,
+            ],
+            [
+                'nome' => 'Ana',
+                'cpf' => '78912345600',
+                'email' => 'ana@gmail.com',
+                'password' => bcrypt('456456456'),
+                'turma_id' => 3,
+                'curso_id' => 3,
+            ],
+        ];
+
+        foreach ($alunos as $aluno) {
+            // cria o usuário
+            $user = User::create([
+                'nome' => $aluno['nome'],
+                'email' => $aluno['email'],
+                'password' => $aluno['password'],
+                'role_id' => 2,
+            ]);
+
+            Aluno::create([
+                'cpf' => $aluno['cpf'],
+                'user_id' => $user->id,
+                'curso_id' => $aluno['curso_id'],
+                'turma_id' => $aluno['turma_id'],
+            ]);
         }
 
         $comprovantes = [
@@ -279,34 +307,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($declaracoes as $declaracao) {
             Declaracao::create($declaracao);
-        }
-
-        $roles = [
-            ['nome' => 'admin'],
-            ['nome' => 'aluno'],
-        ];
-
-        foreach ($roles as $role) {
-            Role::create($role);
-        }
-
-        $users = [
-            [
-                'nome' => 'Carol Feltz',
-                'email' => 'carolfeltz@gmail.com',
-                'senha' => bcrypt('12345678'),
-                'role_id' => 2,
-            ],
-            [
-                'nome' => 'Adm',
-                'email' => 'adm@gmail.com',
-                'senha' => bcrypt('admin123'),
-                'role_id' => 1,
-            ],
-        ];
-
-        foreach ($users as $user) {
-            User::create($user);
         }
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Aluno')
+@section('title', 'Criar Aluno')
 
 @section('content')
 
@@ -23,22 +23,22 @@
     @csrf
     <div class="mb-3">
         <label for="nome" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" required>
+        <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome') }}" required>
     </div>
 
     <div class="mb-3">
         <label for="cpf" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="cpf" name="cpf" required>
+        <input type="text" class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" required>
     </div>
 
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
     </div>
 
     <div class="mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha" required>
+        <label for="password" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="password" name="password" required>
     </div>
 
     <div class="mb-3">
@@ -46,7 +46,9 @@
         <select class="form-select" name="curso_id" required>
             <option value="" disabled selected>Selecione o curso</option>
             @foreach($cursos as $curso)
-            <option value="{{ $curso->id }}">{{ $curso->nome }}</option>
+            <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
+                {{ $curso->nome }}
+            </option>
             @endforeach
         </select>
     </div>
@@ -56,7 +58,9 @@
         <select class="form-select" name="turma_id" required>
             <option value="" disabled selected>Selecione a turma</option>
             @foreach($turmas as $turma)
-            <option value="{{ $turma->id }}">{{ $turma->ano }}</option>
+            <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>
+                {{ $turma->ano }}
+            </option>
             @endforeach
         </select>
     </div>

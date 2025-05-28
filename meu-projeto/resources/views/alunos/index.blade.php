@@ -22,9 +22,9 @@
         @foreach($alunos as $aluno)
         <tr>
             <td>{{ $aluno->id }}</td>
-            <td>{{ $aluno->nome }}</td>
+            <td>{{ $aluno->user->nome ?? '—' }}</td>
             <td>{{ $aluno->cpf }}</td>
-            <td>{{ $aluno->email }}</td>
+            <td>{{ $aluno->user->email ?? '—' }}</td>
             <td class="d-flex justify-content-end gap-1">
                 <a href="{{ route('alunos.show', $aluno->id) }}" class="button button-show material-symbols-outlined">visibility</a>
                 <a href="{{ route('alunos.edit', $aluno->id) }}" class="button button-edit material-symbols-outlined">edit</a>

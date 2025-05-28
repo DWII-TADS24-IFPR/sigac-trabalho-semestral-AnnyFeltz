@@ -1,52 +1,104 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.app')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('content')
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+@if ($errors->any())
+<div class="mb-4 text-sm text-red-600">
+    <ul class="list-disc list-inside">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+<form method="POST" action="{{ route('register') }}">
+    @csrf
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+    <div>
+        <label for="name" class="block font-medium text-sm text-gray-700">Nome</label>
+        <input id="name" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+            type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+    </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+    <div class="mt-4">
+        <label for="email" class="block font-medium text-sm text-gray-700">Email</label>
+        <input id="email" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+            type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
+    </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+    <div class="mt-4">
+        <label for="password" class="block font-medium text-sm text-gray-700">Senha</label>
+        <input id="password" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+            type="password" name="password" required autocomplete="new-password">
+    </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+    <div class="mt-4">
+        <label for="password_confirmation" class="block font-medium text-sm text-gray-700">Confirme a Senha</label>
+        <input id="password_confirmation" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+            type="password" name="password_confirmation" required autocomplete="new-password">
+    </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+    <div class="mt-4">
+        <label for="role" class="block font-medium text-sm text-gray-700">Tipo de usuário</label>
+        <select id="role" name="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500" required>
+            <option value="" disabled selected>Selecione o tipo</option>
+            <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>Admin</option>
+            <option value="2" {{ old('role') == 2 ? 'selected' : '' }}>Aluno</option>
+        </select>
+    </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+    <div id="alunoFields" class="hidden mt-4">
+        <label for="cpf" class="block font-medium text-sm text-gray-700">CPF</label>
+        <input id="cpf" name="cpf" type="text" class="block mt-1 w-full ..." value="{{ old('cpf') }}">
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        <label for="curso_id" class="block font-medium text-sm text-gray-700 mt-4">Curso</label>
+        <select id="curso_id" name="curso_id" class="block mt-1 w-full ...">
+            <option value="" disabled selected>Selecione o curso</option>
+            @foreach($cursos as $curso)
+            <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>{{ $curso->nome }}</option>
+            @endforeach
+        </select>
+
+        <label for="turma_id" class="block font-medium text-sm text-gray-700 mt-4">Turma</label>
+        <select id="turma_id" name="turma_id" class="block mt-1 w-full ...">
+            <option value="" disabled selected>Selecione a turma</option>
+            @foreach($turmas as $turma)
+            <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>{{ $turma->ano }}</option>
+            @endforeach
+        </select>
+    </div>
+
+
+    <div class="flex items-center justify-end mt-4">
+        <a class="underline text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+            Já registrado?
+        </a>
+
+        <button type="submit" class="ms-3 inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-white text-sm uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Registrar
+        </button>
+    </div>
+</form>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('role');
+        const alunoFields = document.getElementById('alunoFields');
+
+        function toggleAlunoFields() {
+            const isAluno = roleSelect.value === '2';
+            alunoFields.classList.toggle('hidden', !isAluno);
+            alunoFields.querySelectorAll('input, select').forEach(el => {
+                el.required = isAluno;
+            });
+        }
+
+        roleSelect.addEventListener('change', toggleAlunoFields);
+        toggleAlunoFields();
+    });
+</script>
+@endpush
+
+@endsection

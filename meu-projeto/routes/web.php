@@ -10,11 +10,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComprovanteController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\DeclaracaoController;
-use App\Http\Controllers\SolicitacaoController;
-use App\Http\Controllers\GraficoController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentoController;
-use App\Models\Documento;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,10 +19,6 @@ Route::get('/', function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth'])->group(function () {
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,7 +30,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/alunos/show/{id}', [AlunoController::class, 'show'])->name('alunos.show');
 
         Route::get('/declaracoes', [DeclaracaoController::class, 'index'])->name('declaracoes.index');
-        Route::post('/declaracoes/gerar', [DeclaracaoController::class, 'gerar'])->name('declaracoes.gerar');
     });
 
     Route::middleware('isAdmin')->group(function () {
@@ -57,4 +48,12 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('documentos', DocumentoController::class);
         Route::resource('declaracoes', DeclaracaoController::class);
     });
+
+    Route::middleware('isAluno')->group(function () {
+
+        Route::get('/home_aluno', function () {
+            return view('home_aluno');
+        });
+    });
+
 });

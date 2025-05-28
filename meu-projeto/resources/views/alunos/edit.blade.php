@@ -24,7 +24,7 @@
 
     <div class="mb-3">
         <label for="nome" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $aluno->nome) }}" required>
+        <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $aluno->user->nome) }}" required>
     </div>
 
     <div class="mb-3">
@@ -34,14 +34,13 @@
 
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $aluno->email) }}" required>
+        <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $aluno->user->email) }}" required>
     </div>
 
     <div class="mb-3">
-        <label for="senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha" placeholder="Deixe vazio para manter a senha atual">
+        <label for="password" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Deixe vazio para manter a senha atual">
     </div>
-
 
     <div class="mb-3">
         <label for="curso_id" class="form-label">Curso</label>

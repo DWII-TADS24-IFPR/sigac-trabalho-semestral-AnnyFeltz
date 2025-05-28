@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    @vite(['resource/js/app.js'])
-</head>
-<body class="d-flex justify-content-center align-items-center vh-100">
-    <div class="text-center">
-        <button class="btn btn-primary" id="btn">Click me!</button>
+@extends('layouts.app')
+
+@section('title', 'Welcome')
+
+@section('content')
+    <h1> Olá, bem vindo(a) ao SIGAC </h1>
+
+    <h3>aproveite o site, faça login se ja tiver uma conta ou se registre 😀</h3>
+    <br>
+    <div class="display-flex justify-center gap-4 w-full h-full">
+            <a class="button botao" href="{{ '/login' }}">Login</a>
+            <a class="button botao" href="{{ '/register' }}">Register</a>
     </div>
-</body>
-</html>
+
+@endsection
