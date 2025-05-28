@@ -134,9 +134,37 @@ h3 {
     transform: scale(1.05);
 }
 
+.card-principal {
+    display: flex;
+    flex-direction: column;
+    background-color: #cacaca;
+    width: 95%;
+    height: 180px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    border-radius: 5px;
+    border: #999999 solid 1px;
+}
+
+.card-principal:hover {
+    transform: scale(1.05);
+}
+
 .botoes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    align-self: center;
+    width: 100%;
+    align-content: center;
+    justify-items: center;
+    row-gap: 60px;
+    padding: 60px;
+}
+
+.botoes-principal {
+    display: grid;
     align-self: center;
     width: 100%;
     align-content: center;
@@ -171,6 +199,38 @@ h3 {
     background-color: #333;
     color: white;
     transform: scale(0.95);
+}
+
+.botao-principal {
+    background-color: #808080;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px;
+    cursor: pointer;
+    width: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, color 0.3s;
+    transition: transform 0.3s;
+}
+
+.botao-principal a {
+    color: white;
+    text-decoration: none;
+}
+
+.botao-principal:hover {
+    background-color: #333;
+    color: white;
+    transform: scale(0.95);
+}
+
+.botoes-lado-a-lado{
+    display: flex;
 }
 
 .button-show {

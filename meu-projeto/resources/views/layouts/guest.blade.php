@@ -13,6 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+    @include('layouts.navbar_guest')
     <div class="container mt-4">
         @yield('content')
     </div>

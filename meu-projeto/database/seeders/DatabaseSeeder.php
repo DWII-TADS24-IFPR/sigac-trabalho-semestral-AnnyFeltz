@@ -191,15 +191,25 @@ class DatabaseSeeder extends Seeder
             Role::create($role);
         }
 
-        $alunos = [
+        $adms = [
             [
                 'nome' => 'Adm',
-                'cpf' => '12345678902',
                 'email' => 'adm@gmail.com',
-                'password' => bcrypt('admin123'),
-                'turma_id' => 1,
-                'curso_id' => 1,
+                'password' => bcrypt('admin111'),
             ],
+            [
+                'nome' => 'Adm2',
+                'email' => 'adm2@gmail.com',
+                'password' => bcrypt('admin222'),
+            ],
+            [
+                'nome' => 'Adm3',
+                'email' => 'adm3@gmail.com',
+                'password' => bcrypt('admin333'),
+            ],
+        ];
+
+        $alunos = [
             [
                 'nome' => 'Carol',
                 'cpf' => '12345678900',
@@ -243,7 +253,6 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($alunos as $aluno) {
-            // cria o usuário
             $user = User::create([
                 'nome' => $aluno['nome'],
                 'email' => $aluno['email'],
@@ -256,6 +265,15 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $user->id,
                 'curso_id' => $aluno['curso_id'],
                 'turma_id' => $aluno['turma_id'],
+            ]);
+        }
+
+        foreach ($adms as $adm) {
+            User::create([
+                'nome' => $adm['nome'],
+                'email' => $adm['email'],
+                'password' => $adm['password'],
+                'role_id' => 1,
             ]);
         }
 

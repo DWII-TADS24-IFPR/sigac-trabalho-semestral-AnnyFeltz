@@ -9,7 +9,7 @@
 </head>
 <body>
     
-    @include('layouts.navbar')
+    @include('layouts.navbar_aluno')
 
     <div class="container mt-4">
         @yield('content')

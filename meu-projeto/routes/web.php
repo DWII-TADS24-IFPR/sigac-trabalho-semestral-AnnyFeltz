@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('comprovantes', ComprovanteController::class);
         Route::resource('documentos', DocumentoController::class);
         Route::resource('declaracoes', DeclaracaoController::class);
+        
         Route::get('/avaliar-horas', function () {
             return view('outros.avaliar_solicitacoes');
         });

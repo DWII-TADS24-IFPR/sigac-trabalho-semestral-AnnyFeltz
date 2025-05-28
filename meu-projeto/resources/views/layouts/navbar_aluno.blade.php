@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="{{ url('/') }}">Home</a>
+        <a class="navbar-brand" href="{{ url('/home_aluno') }}">Home</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -12,35 +12,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/alunos') }}">Alunos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/cursos') }}">Cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/turmas') }}">Turmas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/nivels') }}">Níveis</a>
-                </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Mais
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('comprovantes.index') }}">Comprovantes</a></li>
-                        <li><a class="dropdown-item" href="{{ route('declaracoes.index') }}">Declarações</a></li>
-                        <li><a class="dropdown-item" href="{{ route('documentos.index') }}">Documentos</a></li>
-                        <li><a class="dropdown-item" href="{{ route('categorias.index') }}">Categorias</a></li>
-                    </ul>
-
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <p class="material-symbols-outlined">menu</p>
+                        | | |
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-item"><a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Profile') }}</a></li>
@@ -51,6 +25,13 @@
                             </form>
                         </li>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ '/declarar-horas' }}">Gerar Declarações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ '/solicitar-horas' }}">Solicitar Horas</a>
                 </li>
             </ul>
 
