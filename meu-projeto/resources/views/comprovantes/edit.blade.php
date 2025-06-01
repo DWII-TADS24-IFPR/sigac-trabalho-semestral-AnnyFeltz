@@ -19,6 +19,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('comprovantes.update', $comprovante->id) }}" method="POST">
     @csrf
     @method('PUT')

@@ -19,6 +19,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('documentos.store') }}" method="POST">
     @csrf
 

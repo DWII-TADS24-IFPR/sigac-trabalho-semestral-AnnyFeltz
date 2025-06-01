@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Declaracao;
+use App\Models\Aluno;
+use App\Models\Comprovante;
+use Illuminate\Support\Facades\Auth;
+use PDF; // Facade do dompdf
 
 class DeclaracaoController extends Controller
 {
@@ -12,8 +16,18 @@ class DeclaracaoController extends Controller
      */
     public function index()
     {
-        $declaracoes = Declaracao::all();
-        return view('declaracoes.index')->with('declaracoes', $declaracoes);
+        $user = Auth::user();
+
+        if ($user->role->nome === 'admin') {
+            // Admin vê todas declarações
+            $declaracoes = Declaracao::all();
+        } else {
+            // Aluno vê só suas declarações
+            $aluno = $user->aluno;
+            $declaracoes = Declaracao::where('aluno_id', $aluno->id)->get();
+        }
+
+        return view('declaracoes.index', compact('declaracoes'));
     }
 
     /**
@@ -21,8 +35,8 @@ class DeclaracaoController extends Controller
      */
     public function create()
     {
-        $alunos = \App\Models\Aluno::all();
-        $comprovantes = \App\Models\Comprovante::all();
+        $alunos = Aluno::all();
+        $comprovantes = Comprovante::all();
 
         return view('declaracoes.create', compact('alunos', 'comprovantes'));
     }
@@ -50,7 +64,13 @@ class DeclaracaoController extends Controller
     public function show(string $id)
     {
         $declaracao = Declaracao::findOrFail($id);
-        return view('declaracoes.show')->with('declaracao', $declaracao);
+
+        $user = Auth::user();
+        if ($user->role->nome !== 'admin' && $declaracao->aluno_id !== $user->aluno->id) {
+            abort(403, 'Acesso negado');
+        }
+
+        return view('declaracoes.show', compact('declaracao'));
     }
 
     /**
@@ -59,10 +79,10 @@ class DeclaracaoController extends Controller
     public function edit(string $id)
     {
         $declaracao = Declaracao::findOrFail($id);
-        $alunos = \App\Models\Aluno::all();
-        $comprovantes = \App\Models\Comprovante::all();
+        $alunos = Aluno::all();
+        $comprovantes = Comprovante::all();
 
-        return view('declaracoes.edit')->with(['declaracao' => $declaracao, 'alunos' => $alunos, 'comprovantes' => $comprovantes]);
+        return view('declaracoes.edit', compact('declaracao', 'alunos', 'comprovantes'));
     }
 
     /**
@@ -91,5 +111,20 @@ class DeclaracaoController extends Controller
         $declaracao->delete();
 
         return redirect()->route('declaracoes.index')->with('success', 'Declaração excluída com sucesso.');
+    }
+
+    public function gerarPDF($id)
+    {
+        $declaracao = Declaracao::findOrFail($id);
+
+        // Verificação de acesso para aluno
+        $user = Auth::user();
+        if ($user->role->nome !== 'admin' && $declaracao->aluno_id !== $user->aluno->id) {
+            abort(403, 'Acesso negado');
+        }
+
+        $pdf = PDF::loadView('declaracoes.pdf', compact('declaracao'));
+
+        return $pdf->download('declaracao_' . $declaracao->id . '.pdf');
     }
 }

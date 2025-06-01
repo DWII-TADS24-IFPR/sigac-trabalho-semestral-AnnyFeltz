@@ -20,6 +20,8 @@
 
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('turmas.store') }}" method="POST">
     @csrf
     <div class="mb-3">

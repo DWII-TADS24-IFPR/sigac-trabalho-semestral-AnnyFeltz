@@ -19,6 +19,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('users.update', $user->id) }}" method="POST">
     @csrf
     @method('PUT')

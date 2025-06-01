@@ -36,7 +36,6 @@ class DocumentoController extends Controller
             'descricao' => 'required|string|max:255',
             'horas_in' => 'required|numeric',
             'status' => 'required|string|max:50',
-            'comentario' => 'nullable|string',
             'horas_out' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,id',
         ]);
@@ -76,7 +75,6 @@ class DocumentoController extends Controller
             'descricao' => 'required|string|max:255',
             'horas_in' => 'required|numeric',
             'status' => 'required|string|max:50',
-            'comentario' => 'nullable|string',
             'horas_out' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,id',
         ]);

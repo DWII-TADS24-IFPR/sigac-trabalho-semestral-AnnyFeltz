@@ -18,6 +18,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('nivels.update', $nivel->id) }}" method="POST">
     @csrf
     @method('PUT')

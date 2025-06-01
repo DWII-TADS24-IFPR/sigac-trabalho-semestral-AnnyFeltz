@@ -18,6 +18,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('cursos.update', $curso->id) }}" method="POST">
     @csrf
     @method('PUT')

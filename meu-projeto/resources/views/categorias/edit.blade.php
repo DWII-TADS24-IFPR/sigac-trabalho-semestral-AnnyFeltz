@@ -19,6 +19,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('categorias.update', $categoria->id) }}" method="POST">
     @csrf
     @method('PUT')

@@ -19,6 +19,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('eixos.store') }}" method="POST">
     @csrf
     <div class="mb-3">

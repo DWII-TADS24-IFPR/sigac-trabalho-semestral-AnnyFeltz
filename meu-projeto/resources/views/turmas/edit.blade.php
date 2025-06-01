@@ -18,6 +18,8 @@
 </div>
 @endif
 
+@include('components.sucess')
+
 <form action="{{ route('turmas.update', $turma->id) }}" method="POST">
     @csrf
     @method('PUT')

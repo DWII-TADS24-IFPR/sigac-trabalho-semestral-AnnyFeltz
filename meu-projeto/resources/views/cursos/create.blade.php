@@ -17,8 +17,9 @@
         @endforeach
     </ul>
 </div>
-
 @endif
+
+@include('components.sucess')
 
 <form action="{{ route('cursos.store') }}" method="POST">
     @csrf

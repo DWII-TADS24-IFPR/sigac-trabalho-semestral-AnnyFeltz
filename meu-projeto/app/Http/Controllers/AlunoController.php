@@ -37,7 +37,7 @@ class AlunoController extends Controller
             'nome' => 'required|string|max:255',
             'cpf' => 'required|string|max:14|unique:alunos',
             'email' => 'required|email|max:255|unique:users,email',
-            'senha' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed',
             'curso_id' => 'required|exists:cursos,id',
             'turma_id' => 'required|exists:turmas,id',
         ]);
@@ -45,7 +45,7 @@ class AlunoController extends Controller
         $user = User::create([
             'nome' => $request->nome,
             'email' => $request->email,
-            'senha' => bcrypt($request->senha),
+            'password' => bcrypt($request->password),
             'role_id' => 2,
         ]);
 
@@ -56,7 +56,7 @@ class AlunoController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return redirect()->route('alunos.index')->with('success', 'Aluno criado com sucesso!');
+        return redirect()->route('alunos.create')->with('success', 'Aluno criado com sucesso!');
     }
 
 
@@ -78,7 +78,7 @@ class AlunoController extends Controller
         $cursos = \App\Models\Curso::all();
         $turmas = \App\Models\Turma::all();
 
-        return view('alunos.edit')->with(['aluno' => $aluno, 'cursos' => $cursos, 'turmas' => $turmas]);
+        return view('alunos.edit', $aluno->id)->with(['aluno' => $aluno, 'cursos' => $cursos, 'turmas' => $turmas]);
     }
 
     /**
@@ -90,7 +90,7 @@ class AlunoController extends Controller
             'nome' => 'required|string|max:255',
             'cpf' => 'required|string|max:14|unique:alunos,cpf,' . $aluno->id,
             'email' => 'required|email|max:255|unique:users,email,' . $aluno->user_id,
-            'senha' => 'nullable|string|min:6|confirmed',
+            'password' => 'nullable|string|min:6|confirmed',
             'curso_id' => 'required|exists:cursos,id',
             'turma_id' => 'required|exists:turmas,id',
         ]);
@@ -99,8 +99,8 @@ class AlunoController extends Controller
         $user = $aluno->user;
         $user->nome = $request->nome;
         $user->email = $request->email;
-        if ($request->filled('senha')) {
-            $user->senha = bcrypt($request->senha);
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
         }
         $user->save();
 
@@ -110,7 +110,7 @@ class AlunoController extends Controller
         $aluno->turma_id = $request->turma_id;
         $aluno->save();
 
-        return redirect()->route('alunos.index')->with('success', 'Aluno atualizado com sucesso!');
+        return redirect()->route('alunos.edit', $aluno->id)->with('success', 'Aluno atualizado com sucesso!');
     }
 
 
