@@ -24,7 +24,8 @@
             <td>{{ $declaracao->comprovante->atividade ?? '-' }}</td>
             <td>{{ $declaracao->data }}</td>
             <td>
-                <a href="{{ route('aluno.declaracoes.pdf', $declaracao->id) }}" class="button button-delete material_symbols_outlined" target="_blank">download</a>
+                <a href="{{ route('aluno.declaracoes.pdf', $declaracao->id) }}" class="button button-delete material-symbols-outlined" target="_blank">download</a>
+
             </td>
         </tr>
     </tbody>
