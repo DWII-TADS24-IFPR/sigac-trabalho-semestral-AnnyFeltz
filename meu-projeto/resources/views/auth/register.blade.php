@@ -52,7 +52,7 @@
             </select>
         </div>
 
-        <h3>se for aluno preencher tambem esses</h3>
+        <p>se for aluno preencher tambem esses</p>
 
         <div id="alunoFields" class="hidden mt-4">
             <label for="cpf" class="block font-medium text-sm text-gray-700">CPF</label>
