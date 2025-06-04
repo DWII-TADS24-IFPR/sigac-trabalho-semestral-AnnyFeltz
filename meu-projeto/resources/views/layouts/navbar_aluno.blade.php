@@ -28,10 +28,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ '/declarar-horas' }}">Gerar Declarações</a>
+                    <a class="nav-link" href="{{ '/solicitacoes' }}">Solicitações</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ '/solicitar-horas' }}">Solicitar Horas</a>
+                    <a class="nav-link" href="{{ '/aluno/declaracoes' }}">Declarações</a>
                 </li>
             </ul>
 

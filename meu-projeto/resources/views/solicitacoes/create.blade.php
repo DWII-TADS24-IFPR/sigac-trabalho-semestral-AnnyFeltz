@@ -26,6 +26,6 @@
         @error('comprovante') <small class="text-danger">{{ $message }}</small> @enderror
     </div>
 
-    <button type="submit" class="btn btn-success">Enviar Solicitação</button>
+    <button type="submit" class="button">Enviar Solicitação</button>
 </form>
 @endsection

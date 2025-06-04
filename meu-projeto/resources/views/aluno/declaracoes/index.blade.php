@@ -24,9 +24,8 @@
             <td>{{ $declaracao->comprovante->atividade ?? '-' }}</td>
             <td>{{ $declaracao->data }}</td>
             <td class="d-flex justify-content-end gap-1">
-                <a href="{{ route('aluno.declaracoes.pdf', $declaracao->id) }}" class="btn btn-primary btn-sm" target="_blank">Gerar PDF</a>
+                <a href="{{ route('aluno.declaracoes.pdf', $declaracao->id) }}" class="button button-delete material-symbols-outlined" target="_blank">download</a>
                 <a href="{{ route('aluno.declaracoes.show', $declaracao->id) }}" class="button button-show material-symbols-outlined">visibility</a>
-                <a href="{{ route('aluno.declaracoes.edit', $declaracao->id) }}" class="button button-edit material-symbols-outlined">edit</a>
             </td>
         </tr>
         @endforeach

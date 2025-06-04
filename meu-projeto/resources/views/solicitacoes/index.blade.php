@@ -5,7 +5,7 @@
 @section('content')
 <h1>Minhas Solicitações</h1>
 
-<a href="{{ route('solicitacoes.create') }}" class="btn btn-primary mb-3">Nova Solicitação</a>
+<a href="{{ route('solicitacoes.create') }}" class="button">Nova Solicitação</a>
 
 <table class="table">
     <thead>
