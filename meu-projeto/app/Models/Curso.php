@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Nivel;
 use App\Models\Categoria;
 use App\Models\Turma;
 use App\Models\Aluno;
 
+
 class Curso extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'cursos';
     protected $fillable = ['nome', 'sigla', 'total_horas', 'nivel_id'];
 

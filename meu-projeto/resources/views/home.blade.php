@@ -13,7 +13,7 @@
         <h4>Funções</h4>
         <br>
         <div class="botoes-lado-a-lado">
-            <a class="botao-principal button" href="{{ '/avaliar-solicitacoes' }}">Avaliar Solicitações de Horas e Afins</a>
+            <a class="botao-principal button" href="{{ '/adm/solicitacoes' }}">Avaliar Solicitações de Horas e Afins</a>
             <a class="botao-principal button" href="{{ '/gerar-graficos' }}">Gerar Graficos de Horas Coumpridas</a>
         </div>
     </div>

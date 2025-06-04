@@ -31,6 +31,7 @@
                     @method('DELETE')
                     <button type="submit" class="button button-delete material-symbols-outlined">delete</button>
                 </form>
+
             </td>
         </tr>
         @endforeach

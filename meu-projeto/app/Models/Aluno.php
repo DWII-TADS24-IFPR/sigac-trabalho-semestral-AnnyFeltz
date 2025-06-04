@@ -7,9 +7,14 @@ use App\Models\Curso;
 use App\Models\Turma;
 use App\Models\Comprovante;
 use App\Models\Declaracao;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Solicitacao;
+use App\Models\User;
 
 class Aluno extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'alunos';
     protected $fillable = ['cpf', 'curso_id', 'turma_id', 'user_id'];  // tira nome, email, senha daqui
 
@@ -36,5 +41,10 @@ class Aluno extends Model
     public function declaracoes()
     {
         return $this->hasMany(Declaracao::class);
+    }
+
+    public function solicitacoes()
+    {
+        return $this->hasMany(Solicitacao::class);
     }
 }

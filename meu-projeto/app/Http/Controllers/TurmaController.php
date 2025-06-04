@@ -88,23 +88,4 @@ class TurmaController extends Controller
         $turma = Turma::findOrFail($id);
         $turma->delete();
     }
-
-    public function minhaTurma()
-    {
-        $user = Auth::user();
-
-        if (!$user || $user->role->nome !== 'Aluno') {
-            return redirect()->route('home_aluno')->with('error', 'Acesso não autorizado.');
-        }
-
-        // Verifica se o usuário tem aluno e turma relacionada
-        if (!$user || $user->role->nome !== 'aluno') {
-            return redirect()->route('home_aluno')->with('error', 'Acesso não autorizado.');
-        }
-
-
-        $turma = $user->aluno->turma;
-
-        return view('turmas.minha', compact('turma'));
-    }
 }

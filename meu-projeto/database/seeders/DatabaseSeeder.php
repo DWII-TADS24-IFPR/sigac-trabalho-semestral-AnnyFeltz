@@ -109,7 +109,7 @@ class DatabaseSeeder extends Seeder
 
         $categorias = [
             [
-                'nome' => 'Categoria A',
+                'nome' => 'Horas Afins/Complementares',
                 'max_horas' => 20,
                 'curso_id' => 1
             ],
