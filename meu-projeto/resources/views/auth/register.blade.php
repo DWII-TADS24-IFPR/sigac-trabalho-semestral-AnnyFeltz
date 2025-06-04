@@ -12,74 +12,84 @@
 </div>
 @endif
 
-<form method="POST" action="{{ route('register') }}">
-    @csrf
+<div class="login_register_form">
 
-    <div>
-        <label for="name" class="block font-medium text-sm text-gray-700">Nome</label>
-        <input id="name" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
-            type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
-    </div>
+<h1>Registrar</h1>
 
-    <div class="mt-4">
-        <label for="email" class="block font-medium text-sm text-gray-700">Email</label>
-        <input id="email" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
-            type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
-    </div>
+    <form method=" POST" action="{{ route('register') }}">
+        @csrf
 
-    <div class="mt-4">
-        <label for="password" class="block font-medium text-sm text-gray-700">Senha</label>
-        <input id="password" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
-            type="password" name="password" required autocomplete="new-password">
-    </div>
+        <div>
+            <label for="name" class="block font-medium text-sm text-gray-700">Nome</label>
+            <input id="name" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+                type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+        </div>
 
-    <div class="mt-4">
-        <label for="password_confirmation" class="block font-medium text-sm text-gray-700">Confirme a Senha</label>
-        <input id="password_confirmation" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
-            type="password" name="password_confirmation" required autocomplete="new-password">
-    </div>
+        <div class="mt-4">
+            <label for="email" class="block font-medium text-sm text-gray-700">Email</label>
+            <input id="email" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+                type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
+        </div>
 
-    <div class="mt-4">
-        <label for="role" class="block font-medium text-sm text-gray-700">Tipo de usuário</label>
-        <select id="role" name="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500" required>
-            <option value="" disabled selected>Selecione o tipo</option>
-            <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>Admin</option>
-            <option value="2" {{ old('role') == 2 ? 'selected' : '' }}>Aluno</option>
-        </select>
-    </div>
+        <div class="mt-4">
+            <label for="password" class="block font-medium text-sm text-gray-700">Senha</label>
+            <input id="password" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+                type="password" name="password" required autocomplete="new-password">
+        </div>
 
-    <div id="alunoFields" class="hidden mt-4">
-        <label for="cpf" class="block font-medium text-sm text-gray-700">CPF</label>
-        <input id="cpf" name="cpf" type="text" class="block mt-1 w-full ..." value="{{ old('cpf') }}">
+        <div class="mt-4">
+            <label for="password_confirmation" class="block font-medium text-sm text-gray-700">Confirme a Senha</label>
+            <input id="password_confirmation" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500"
+                type="password" name="password_confirmation" required autocomplete="new-password">
+        </div>
 
-        <label for="curso_id" class="block font-medium text-sm text-gray-700 mt-4">Curso</label>
-        <select id="curso_id" name="curso_id" class="block mt-1 w-full ...">
-            <option value="" disabled selected>Selecione o curso</option>
-            @foreach($cursos as $curso)
-            <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>{{ $curso->nome }}</option>
-            @endforeach
-        </select>
+        <div class="mt-4">
+            <label for="role" class="block font-medium text-sm text-gray-700">Tipo de usuário</label>
+            <select id="role" name="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-500" required>
+                <option value="" disabled selected>Selecione o tipo</option>
+                <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>Admin</option>
+                <option value="2" {{ old('role') == 2 ? 'selected' : '' }}>Aluno</option>
+            </select>
+        </div>
 
-        <label for="turma_id" class="block font-medium text-sm text-gray-700 mt-4">Turma</label>
-        <select id="turma_id" name="turma_id" class="block mt-1 w-full ...">
-            <option value="" disabled selected>Selecione a turma</option>
-            @foreach($turmas as $turma)
-            <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>{{ $turma->ano }}</option>
-            @endforeach
-        </select>
-    </div>
+        <h3>se for aluno preencher tambem esses</h3>
+
+        <div id="alunoFields" class="hidden mt-4">
+            <label for="cpf" class="block font-medium text-sm text-gray-700">CPF</label>
+            <input id="cpf" name="cpf" type="text" class="block mt-1 w-full ..." value="{{ old('cpf') }}">
+
+            <label for="curso_id" class="block font-medium text-sm text-gray-700 mt-4">Curso</label>
+            <select id="curso_id" name="curso_id" class="block mt-1 w-full ...">
+                <option value="" disabled selected>Selecione o curso</option>
+                @foreach($cursos as $curso)
+                <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>{{ $curso->nome }}</option>
+                @endforeach
+            </select>
+
+            <label for="turma_id" class="block font-medium text-sm text-gray-700 mt-4">Turma</label>
+            <select id="turma_id" name="turma_id" class="block mt-1 w-full ...">
+                <option value="" disabled selected>Selecione a turma</option>
+                @foreach($turmas as $turma)
+                <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>{{ $turma->ano }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <br>
+        <div>
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                Já registrado?
+            </a>
 
 
-    <div class="flex items-center justify-end mt-4">
-        <a class="underline text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-            Já registrado?
-        </a>
-
-        <button type="submit" class="ms-3 inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-white text-sm uppercase tracking-widest hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        </div>
+        <br>
+        <button type="submit" class="button botao">
             Registrar
         </button>
-    </div>
-</form>
+    </form>
+
+</div>
 
 @push('scripts')
 <script>

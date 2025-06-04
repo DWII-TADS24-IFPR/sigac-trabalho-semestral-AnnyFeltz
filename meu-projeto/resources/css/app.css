@@ -14,7 +14,6 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #f0f0f0;
-
 }
 
 h1,
@@ -312,4 +311,14 @@ h3 {
     background-color: #a14d4d;
     color: white;
     transform: scale(0.95);
+}
+
+.login_register_form{
+    background-color: #dddddd;
+    display: flex;
+    flex-direction: column;
+    margin: 50px 50px 50px 50px;
+    padding: 30px;
+    border-radius: 30px;
+
 }

@@ -22,7 +22,7 @@
         <tr>
             <td>{{ $comprovante->id }}</td>
             <td>{{ $comprovante->atividade ?? '-' }}</td>
-            <td>{{ $comprovante->aluno->nome ?? '-' }}</td>
+            <td>{{ $comprovante->aluno->user->nome ?? '-' }}</td>
             <td class="d-flex justify-content-end gap-1">
                 <a href="{{ route('comprovantes.show', $comprovante->id) }}" class="button button-show material-symbols-outlined">visibility</a>
                 <a href="{{ route('comprovantes.edit', $comprovante->id) }}" class="button button-edit material-symbols-outlined">edit</a>

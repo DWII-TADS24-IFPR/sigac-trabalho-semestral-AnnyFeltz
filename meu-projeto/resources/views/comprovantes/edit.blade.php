@@ -39,7 +39,7 @@
         <label for="aluno_id" class="form-label">Aluno</label>
         <select class="form-select" id="aluno_id" name="aluno_id" required>
             @foreach($alunos as $aluno)
-                <option value="{{ $aluno->id }}" {{ old('aluno_id', $comprovante->aluno_id) == $aluno->id ? 'selected' : '' }}>{{ $aluno->nome }}</option>
+            <option value="{{ $aluno->id }}" {{ old('aluno_id', $comprovante->aluno_id) == $aluno->id ? 'selected' : '' }}>{{ $aluno->user->nome ?? '-' }}</option>
             @endforeach
         </select>
     </div>
@@ -48,7 +48,7 @@
         <label for="categoria_id" class="form-label">Categoria</label>
         <select class="form-select" id="categoria_id" name="categoria_id" required>
             @foreach($categorias as $categoria)
-                <option value="{{ $categoria->id }}" {{ old('categoria_id', $comprovante->categoria_id) == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
+            <option value="{{ $categoria->id }}" {{ old('categoria_id', $comprovante->categoria_id) == $categoria->id ? 'selected' : '' }}>{{ $categoria->nome }}</option>
             @endforeach
         </select>
     </div>

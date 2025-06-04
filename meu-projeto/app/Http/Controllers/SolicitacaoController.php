@@ -16,13 +16,12 @@ class SolicitacaoController extends Controller
     {
         if (Auth::user()->role->nome === 'admin') {
             $solicitacoes = Solicitacao::with('aluno')->get();
-            return view('adm.solicitacoes.index', compact('solicitacoes')); // <<< aqui está o segredo
+            return view('adm.solicitacoes.index', compact('solicitacoes'));
         } else {
             $solicitacoes = Solicitacao::where('aluno_id', Auth::id())->get();
             return view('solicitacoes.index', compact('solicitacoes'));
         }
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -102,9 +101,7 @@ class SolicitacaoController extends Controller
         ]);
 
         if ($request->hasFile('comprovante')) {
-            // Apaga o arquivo antigo
             Storage::delete($solicitacao->comprovante);
-            // Salva o novo arquivo
             $path = $request->file('comprovante')->store('comprovantes');
             $solicitacao->comprovante = $path;
         }
@@ -135,31 +132,31 @@ class SolicitacaoController extends Controller
     public function avaliar(Request $request, string $id)
     {
         $request->validate([
-        'status' => 'required|in:aprovado,rejeitado',
-    ]);
-
-    $solicitacao = Solicitacao::findOrFail($id);
-
-    if (Auth::user()->role->nome !== 'admin') {
-        abort(403, 'Ação não permitida');
-    }
-
-    if ($solicitacao->status !== 'pendente') {
-        return redirect()->back()->with('error', 'Esta solicitação já foi avaliada.');
-    }
-
-    $solicitacao->status = $request->status;
-    $solicitacao->save();
-
-    if ($request->status === 'aprovado') {
-        \App\Models\Comprovante::create([
-            'horas' => $solicitacao->carga_horaria,
-            'atividade' => $solicitacao->nome,
-            'aluno_id' => $solicitacao->aluno_id,
-            'categoria_id' => 1,
+            'status' => 'required|in:aprovado,rejeitado',
         ]);
-    }
 
-    return redirect()->route('adm.solicitacoes.index')->with('success', 'Solicitação avaliada com sucesso!');
+        $solicitacao = Solicitacao::findOrFail($id);
+
+        if (Auth::user()->role->nome !== 'admin') {
+            abort(403, 'Ação não permitida');
+        }
+
+        if ($solicitacao->status !== 'pendente') {
+            return redirect()->back()->with('error', 'Esta solicitação já foi avaliada.');
+        }
+
+        $solicitacao->status = $request->status;
+        $solicitacao->save();
+
+        if ($request->status === 'aprovado') {
+            \App\Models\Comprovante::create([
+                'horas' => $solicitacao->carga_horaria,
+                'atividade' => $solicitacao->nome,
+                'aluno_id' => $solicitacao->aluno_id,
+                'categoria_id' => 1,
+            ]);
+        }
+
+        return redirect()->route('adm.solicitacoes.index')->with('success', 'Solicitação avaliada com sucesso!');
     }
 }

@@ -11,7 +11,6 @@ use function view;
 use function redirect;
 use function compact;
 
-
 class ComprovanteController extends Controller
 {
     /**
@@ -19,7 +18,8 @@ class ComprovanteController extends Controller
      */
     public function index()
     {
-        $comprovantes = Comprovante::all();
+        // Carrega comprovantes com aluno e o user do aluno
+        $comprovantes = Comprovante::with('aluno.user')->get();
         return view('comprovantes.index')->with('comprovantes', $comprovantes);
     }
 
@@ -28,7 +28,8 @@ class ComprovanteController extends Controller
      */
     public function create()
     {
-        $alunos = Aluno::all();
+        // Carrega os alunos junto com os users
+        $alunos = Aluno::with('user')->get();
         $categorias = Categoria::all();
 
         return view('comprovantes.create', compact('alunos', 'categorias'));
@@ -56,7 +57,8 @@ class ComprovanteController extends Controller
      */
     public function show(string $id)
     {
-        $comprovante = Comprovante::findOrFail($id);
+        // Carrega o comprovante com aluno, user e categoria
+        $comprovante = Comprovante::with('aluno.user', 'categoria')->findOrFail($id);
         return view('comprovantes.show')->with('comprovante', $comprovante);
     }
 
@@ -66,10 +68,15 @@ class ComprovanteController extends Controller
     public function edit(string $id)
     {
         $comprovante = Comprovante::findOrFail($id);
-        $alunos = Aluno::all();
+        // Carrega os alunos com seus users
+        $alunos = Aluno::with('user')->get();
         $categorias = Categoria::all();
 
-        return view('comprovantes.edit')->with(['comprovante' => $comprovante, 'alunos' => $alunos, 'categorias' => $categorias]);
+        return view('comprovantes.edit')->with([
+            'comprovante' => $comprovante,
+            'alunos' => $alunos,
+            'categorias' => $categorias
+        ]);
     }
 
     /**

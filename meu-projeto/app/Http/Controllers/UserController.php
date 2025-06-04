@@ -30,36 +30,36 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'cpf' => 'required|string|max:14|unique:alunos',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-        'role_id' => 'required|exists:roles,id',
-        'curso_id' => 'nullable|exists:cursos,id',
-        'turma_id' => 'nullable|exists:turmas,id',
-    ]);
-
-    $user = User::create([
-        'nome' => $request->nome,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-        'role_id' => $request->role_id,
-    ]);
-
-    // Se for aluno, cria o registro na tabela alunos
-    if ($user->role && strtolower($user->role->nome) === 'aluno') {
-        Aluno::create([
-            'cpf' => $request->cpf,
-            'curso_id' => $request->curso_id,
-            'turma_id' => $request->turma_id,
-            'user_id' => $user->id,
+    {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|max:14|unique:alunos',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role_id' => 'required|exists:roles,id',
+            'curso_id' => 'nullable|exists:cursos,id',
+            'turma_id' => 'nullable|exists:turmas,id',
         ]);
-    }
 
-    return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso.');
-}
+        $user = User::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role_id' => $request->role_id,
+        ]);
+
+        // Se for aluno, cria o registro na tabela alunos
+        if ($user->role && strtolower($user->role->nome) === 'aluno') {
+            Aluno::create([
+                'cpf' => $request->cpf,
+                'curso_id' => $request->curso_id,
+                'turma_id' => $request->turma_id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso.');
+    }
 
 
     /**
@@ -96,12 +96,19 @@ class UserController extends Controller
         $user->nome = $request->nome;
         $user->email = $request->email;
         if ($request->password) {
-            $user->password = bcrypt($request->passord);
+            $user->password = bcrypt($request->password);
         }
         $user->role_id = $request->role_id;
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        // Atualizar dados do aluno (se existir)
+        if ($user->aluno) {
+            $user->aluno->update([
+                'cpf' => $request->cpf,
+                'curso_id' => $request->curso_id,
+                'turma_id' => $request->turma_id,
+            ]);
+        }
     }
 
     /**

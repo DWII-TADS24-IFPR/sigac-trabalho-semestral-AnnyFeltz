@@ -191,6 +191,6 @@ class DeclaracaoController extends Controller
         }
 
         $pdf = PDF::loadView('declaracoes.pdf', compact('declaracao'));
-        return $pdf->stream('declaracao_' . $declaracao->aluno->name . '.pdf');
+        return $pdf->stream('declaracao_' . $declaracao->aluno->user->nome . '.pdf');
     }
 }
